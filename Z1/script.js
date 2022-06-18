@@ -82,19 +82,72 @@ function validateNumber(number) {
 }
 
 function validateRadio(radio) {
-    // todo
 
+    const input = document.getElementsByName("favouriteNumber");
+
+    if (radio !== undefined){
+        input.className = "";
+        const nameMessage = document.getElementById("radio-input-message");
+        if (nameMessage) {
+            nameMessage.parentElement.removeChild(nameMessage);
+        }
+    } else {
+        input.className = "invalid";
+
+        if (!document.getElementById("radio-input-message")) {
+            const small = document.createElement("small");
+            small.id = "radio-input-message";
+            small.className = "invalid";
+            small.innerText = "\nNie zaznaczono żadnego pola wyboru - to pole jest obowiązkowe";
+            input[0].parentElement.appendChild(small);
+        }
+    }
     return true;
 }
 
 function validatePassword(password) {
-    // todo
 
+    const valid = /(?=^.{8}$)/.test(password);
+    const input = document.querySelector("input[name='password']");
+    if (valid) {
+        input.className = "";
+        const nameMessage = document.getElementById("password-input-message");
+        if (nameMessage) {
+            nameMessage.parentElement.removeChild(nameMessage);
+        }
+    } else {
+        input.className = "invalid";
+        if (!document.getElementById("password-input-message")) {
+            const small = document.createElement("small");
+            small.id = "password-input-message";
+            small.className = "invalid";
+            small.innerText = "Hasło powinno zawierać co najmniej 8 dowolnych znaków";
+            input.parentElement.appendChild(small);
+        }
+    }
     return true;
 }
 
 function validateRepeatedPassword(password, repeatedPassword) {
-    // todo
 
-    return true;
+    let valid = false;
+    const input = document.querySelector("input[name='password2']");
+    if (password === repeatedPassword) {
+        valid = true;
+        input.className = "";
+        const nameMessage = document.getElementById("password2-input-message");
+        if (nameMessage) {
+            nameMessage.parentElement.removeChild(nameMessage);
+        }
+    } else {
+        input.className = "invalid";
+        if (!document.getElementById("password2-input-message")) {
+            const small = document.createElement("small");
+            small.id = "password2-input-message";
+            small.className = "invalid";
+            small.innerText = "Podane hasło jest różne od podanego w polu 'Hasło' - powtórz hasło";
+            input.parentElement.appendChild(small);
+        }
+    }
+    return valid;
 }
